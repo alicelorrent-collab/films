@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Екранія | Країна, де історії оживають</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@300;400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== СТИЛЬ: ЕКРАНІЯ — КРАЇНА ІСТОРІЙ ===== */
+    :root {
+      --primary: #6366f1;        /* фіолетово-синій — магія, глибина */
+      --secondary: #8b5cf6;      /* ліловий — таємниця, уява */
+      --accent: #10b981;         /* зелений акцент — життя, ожиття */
+      --dark-bg: #0b0e1a;
+      --card-bg: #151a2d;
+      --text: #f0f7ff;
+      --text-muted: #cbd5e1;
+      --border-radius: 18px;
+      --transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--dark-bg), #12182a);
+      color: var(--text);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Світловий промінь-декор */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.08), transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      width: min(95%, 1400px);
+      margin-inline: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Header */
+    header {
+      padding: 1.4rem 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(11, 14, 26, 0.94);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(139, 92, 246, 0.12);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 800;
+      font-size: 2.1rem;
+      background: linear-gradient(90deg, #8b5cf6, #6366f1, #a855f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-decoration: none;
+      letter-spacing: -1px;
+      position: relative;
+    }
+    .logo::after {
+      content: '🌀';
+      margin-left: 6px;
+      font-size: 0.85em;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.9rem;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.55rem 0;
+      position: relative;
+      transition: var(--transition);
+      font-size: 1.02rem;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #e0e7ff;
+    }
+
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1.1rem;
+    }
+
+    .btn {
+      background: rgba(139, 92, 246, 0.18);
+      border: none;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      color: #e0e7ff;
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .btn:hover {
+      background: rgba(99, 102, 241, 0.35);
+      transform: scale(1.12);
+    }
+
+    /* Hero — вхід до Екранії */
+    .hero {
+      height: 86vh;
+      background: linear-gradient(rgba(11,14,26,0.5), rgba(11,14,26,0.92)), 
+                  url('https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+      margin-top: 80px;
+      overflow: hidden;
+    }
+
+    /* Портал-ефект */
+    .portal {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at center, transparent 40%, rgba(11,14,26,0.8) 90%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      max-width: 700px;
+      padding: 3.2rem 2.5rem 4.5rem;
+      z-index: 3;
+      position: relative;
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--accent), #34d399);
+      color: #0b0e1a;
+      padding: 0.45rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 800;
+      font-family: 'Manrope', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 1.4rem;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-family: 'Manrope', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.08;
+      margin-bottom: 1.3rem;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.4);
+      background: linear-gradient(90deg, #e0e7ff, #c7d2fe);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      margin-bottom: 1.8rem;
+      max-width: 650px;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .meta {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 1.05rem;
+      opacity: 0.8;
+      margin-bottom: 2.2rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.3rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-enter {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 1.1rem 2.2rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-family: 'Manrope', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 1.15rem;
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+      transition: var(--transition);
+    }
+
+    .btn-enter:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6);
+    }
+
+    .btn-explore {
+      background: rgba(99, 102, 241, 0.15);
+      color: #d1d7f0;
+      padding: 1.1rem 2.2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-family: 'Manrope', sans-serif;
+      border: 1px solid rgba(139, 92, 246, 0.35);
+    }
+
+    /* Search */
+    .search-container {
+      padding: 2.4rem 0 2rem;
+    }
+
+    #search {
+      width: 100%;
+      max-width: 680px;
+      padding: 1.2rem 1.8rem;
+      background: rgba(21, 26, 45, 0.7);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      border-radius: 70px;
+      color: white;
+      font-size: 1.18rem;
+      outline: none;
+      backdrop-filter: blur(12px);
+      font-family: 'Inter', sans-serif;
+    }
+
+    #search::placeholder {
+      color: #a5b4fc;
+      opacity: 0.9;
+    }
+
+    #search:focus {
+      border-color: var(--primary);
+      background: rgba(21, 26, 45, 0.85);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.28);
+    }
+
+    /* Sections */
+    main {
+      padding-bottom: 5.5rem;
+    }
+
+    .section {
+      margin-bottom: 4.2rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #f0f7ff, #c7d2fe);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .section-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .section-link:hover {
+      color: #d1d7f0;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+      border: 1px solid rgba(139, 92, 246, 0.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .card:hover {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45), 
+                  0 0 0 2px rgba(99, 102, 241, 0.25);
+      z-index: 3;
+    }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .card:hover .card-img {
+      transform: scale(1.08);
+    }
+
+    .card-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(11, 14, 26, 0.97));
+      padding: 1.4rem;
+      color: white;
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: 'Manrope', sans-serif;
+    }
+
+    .card-meta {
+      font-size: 0.88rem;
+      opacity: 0.82;
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2.8rem 0 2.2rem;
+      font-size: 1rem;
+      opacity: 0.7;
+      border-top: 1px solid rgba(139, 92, 246, 0.09);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .slogan {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: #c7d2fe;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .hero { height: 72vh; }
+      .hero h1 { font-size: 2.8rem; }
+      .grid { grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 1.5rem; }
+      nav ul { gap: 1.3rem; font-size: 0.95rem; }
+      .btn-enter, .btn-explore { padding: 1rem 1.6rem; font-size: 1.05rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content { padding: 2rem 1.2rem 2.8rem; }
+      .hero h1 { font-size: 2.3rem; }
+      .hero-buttons { flex-direction: column; }
+      .btn-enter, .btn-explore { width: 100%; justify-content: center; }
+      .section-title { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <a href="#" class="logo">Екранія</a>
+        <nav>
+          <ul>
+            <li><a href="#" class="active">Головна</a></li>
+            <li><a href="#">Фільми</a></li>
+            <li><a href="#">Серіали</a></li>
+            <li><a href="#">Мультфільми</a></li>
+            <li><a href="#">Підбірки</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <button class="btn" title="Пошук">🔍</button>
+          <button class="btn" title="Профіль">👤</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="portal"></div>
+    <div class="hero-content">
+      <span class="badge">Вхід відкрито</span>
+      <h1>Хроніки Кам’яного Лісу</h1>
+      <p>Коли земля під ногами стає м’якою, а дерева починають шепотіти старовинними мовами — знаєш: ти ввійшов до Екранії. Але двері зачиняться за тобою… доки історія не завершиться.</p>
+      <div class="meta">
+        <span>2025</span>
+        <span>Фентезі, Пригода</span>
+        <span>12+</span>
+      </div>
+      <div class="hero-buttons">
+        <button class="btn-enter">🌀 Увійти до Екранії</button>
+        <button class="btn-explore">📖 Дізнатися більше</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="search-container">
+      <input type="text" id="search" placeholder="Шукати історії в Екранії...">
+    </div>
+
+    <main>
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Нові ворота</h2>
+          <a href="#" class="section-link">Усі →</a>
+        </div>
+        <div class="grid" id="trending"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Фільми</h2>
+          <a href="#" class="section-link">Усі →</a>
+        </div>
+        <div class="grid" id="movies"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Серіали</h2>
+          <a href="#" class="section-link">Усі →</a>
+        </div>
+        <div class="grid" id="series"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Мультфільми</h2>
+          <a href="#" class="section-link">Усі →</a>
+        </div>
+        <div class="grid" id="cartoons"></div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="slogan">«Країна, де історії оживають»</div>
+      © 2025 Екранія. Створено в Україні. Усі назви — плоди уяви.
+    </div>
+  </footer>
+
+  <script>
+    // Дані: усі назви — оригінальні, «екранійські»
+    const data = {
+      trending: [
+        { title: "Хроніки Кам’яного Лісу", year: "2025", type: "Фільм", img: "https://picsum.photos/200/300?random=1" },
+        { title: "Шепіт Папороті", year: "2024", type: "Серіал", img: "https://picsum.photos/200/300?random=2" },
+        { title: "Подорож Зоряною Краплею", year: "2025", type: "М/ф", img: "https://picsum.photos/200/300?random=3" },
+        { title: "Тінь Вітру", year: "2024", type: "Фільм", img: "https://picsum.photos/200/300?random=4" },
+        { title: "Дзвін у Криниці", year: "2024", type: "Серіал", img: "https://picsum.photos/200/300?random=5" },
+        { title: "Сяйво Старого Дзвона", year: "2025", type: "Фільм", img: "https://picsum.photos/200/300?random=6" },
+      ],
+      movies: [
+        { title: "Вогник у Бурю", year: "2025", type: "Фільм", img: "https://picsum.photos/200/300?random=7" },
+        { title: "Танець Дощових Крапель", year: "2024", type: "Фільм", img: "https://picsum.photos/200/300?random=8" },
+        { title: "Міст над Забутою Рікою", year: "2023", type: "Фільм", img: "https://picsum.photos/200/300?random=9" },
+      ],
+      series: [
+        { title: "Гірська Пісня", year: "2024", type: "Серіал", img: "https://picsum.photos/200/300?random=10" },
+        { title: "Світло у Вікні", year: "2025", type: "Серіал", img: "https://picsum.photos/200/300?random=11" },
+      ],
+      cartoons: [
+        { title: "Їжачок і Хмаринка", year: "2025", type: "М/ф", img: "https://picsum.photos/200/300?random=12" },
+        { title: "Квітка, що Співає", year: "2024", type: "М/ф", img: "https://picsum.photos/200/300?random=13" },
+        { title: "Пригоди Хлопчика-Тіні", year: "2024", type: "М/ф", img: "https://picsum.photos/200/300?random=14" },
+      ]
+    };
+
+    function createCard(item) {
+      return `
+        <div class="card">
+          <img src="${item.img}" alt="${item.title}" class="card-img">
+          <div class="card-overlay">
+            <div class="card-title">${item.title}</div>
+            <div class="card-meta">
+              <span>${item.year}</span> • <span>${item.type}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('trending').innerHTML = data.trending.map(createCard).join('');
+      document.getElementById('movies').innerHTML = data.movies.map(createCard).join('');
+      document.getElementById('series').innerHTML = data.series.map(createCard).join('');
+      document.getElementById('cartoons').innerHTML = data.cartoons.map(createCard).join('');
+
+      const search = document.getElementById('search');
+      const allCards = document.querySelectorAll('.card');
+
+      search.addEventListener('input', () => {
+        const q = search.value.toLowerCase().trim();
+        allCards.forEach(card => {
+          const title = card.querySelector('.card-title').textContent.toLowerCase();
+          card.style.display = !q || title.includes(q) ? 'block' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
