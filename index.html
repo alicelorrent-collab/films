@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Екранія | Країна, де історії оживають</title>
   <meta name="description" content="Екранія — унікальний український сервіс фільмів, серіалів і мультфільмів. Країна, де кожна історія оживає.">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@300;400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@300;400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #6366f1;
@@ -70,28 +70,30 @@
       align-items: center;
     }
 
-    .logo {
-      font-family: 'Manrope', sans-serif;
-      font-weight: 800;
-      font-size: 2.1rem;
-      background: linear-gradient(90deg, #8b5cf6, #6366f1, #a855f7);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-decoration: none;
-      letter-spacing: -1px;
-      position: relative;
+.logo {
+  font-family: 'Cinzel', serif;
+  font-weight: 800;
+  font-size: 2.4rem;
+  background: linear-gradient(90deg, #d1c4e9, #a78bfa, #7e65d1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-decoration: none;
+  letter-spacing: 1px;
+  position: relative;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
-    .logo::after {
-      content: '🌀';
-      margin-left: 6px;
-      font-size: 0.85em;
-      animation: pulse 2s infinite;
-    }
+   .logo::after {
+  content: '🌀';
+  margin-left: 8px;
+  font-size: 0.9em;
+  animation: rotatePulse 3s infinite;
+}
 
-    @keyframes pulse {
-      0%, 100% { opacity: 0.7; }
-      50% { opacity: 1; transform: scale(1.1); }
+@keyframes rotatePulse {
+  0% { transform: rotate(0deg) scale(1); opacity: 0.6; }
+  50% { transform: rotate(180deg) scale(1.1); opacity: 1; }
+  100% { transform: rotate(360deg) scale(1); opacity: 0.6; }
     }
 
     nav ul {
