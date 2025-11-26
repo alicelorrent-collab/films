@@ -454,68 +454,139 @@
     </div>
   </header>
 
-  <section class="hero">
-    <div class="portal"></div>
-    <div class="hero-content">
-      <span class="badge">Вхід відкрито</span>
-      <h1>Хроніки Кам’яного Лісу</h1>
-      <p>Коли земля під ногами стає м’якою, а дерева починають шепотіти старовинними мовами — знаєш: ти ввійшов до Екранії. Але двері зачиняться за тобою… доки історія не завершиться.</p>
-      <div class="meta">
-        <span>2025</span>
-        <span>Фентезі, Пригода</span>
-        <span>12+</span>
-      </div>
-      <div class="hero-buttons">
-        <button class="btn-enter">🌀 Увійти до Екранії</button>
-        <button class="btn-explore">📖 Дізнатися більше</button>
-      </div>
-    </div>
-  </section>
-
-  <div class="container">
-    <div class="search-container">
-      <input type="text" id="search" placeholder="Шукати історії в Екранії...">
-    </div>
-
-    <main>
-      <section class="section">
-        <div class="section-header">
-          <h2 class="section-title">Нові ворота</h2>
-          <a href="#" class="section-link">Усі →</a>
-        </div>
-        <div class="grid" id="trending"></div>
-      </section>
-
-      <section class="section">
-        <div class="section-header">
-          <h2 class="section-title">Фільми</h2>
-          <a href="#" class="section-link">Усі →</a>
-        </div>
-        <div class="grid" id="movies"></div>
-      </section>
-
-      <section class="section">
-        <div class="section-header">
-          <h2 class="section-title">Серіали</h2>
-          <a href="#" class="section-link">Усі →</a>
-        </div>
-        <div class="grid" id="series"></div>
-      </section>
-
-      <section class="section">
-        <div class="section-header">
-          <h2 class="section-title">Мультфільми</h2>
-          <a href="#" class="section-link">Усі →</a>
-        </div>
-        <div class="grid" id="cartoons"></div>
-      </section>
-    </main>
+<section class="hero">
+  <div class="portal">
+    <!-- Анімований пороговий ефект -->
+    <div class="portal-glow"></div>
+    <div class="portal-spiral"></div>
   </div>
+  <div class="hero-content">
+    <span class="badge">Портал відкрито</span>
+    <h1>Вітаємо в Екранії</h1>
+    <p>Тут кожна історія чекає, поки хтось прочитає її очима, почує серцем — і відчинить двері.</p>
+    <div class="hero-buttons">
+      <a href="#trending" class="btn-enter">🌀 Увійти</a>
+    </div>
+  </div>
+</section>
 
-  <footer>
-    <div class="container">
-      <div class="slogan">«Країна, де історії оживають»</div>
-      © 2025 Екранія. Створено в Україні. Усі назви — плоди уяви.
+<style>
+  .portal {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .portal-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.12), transparent 70%);
+    transform: translate(-50%, -50%);
+    animation: pulse 6s ease-in-out infinite;
+    filter: blur(60px);
+    z-index: 1;
+  }
+
+  .portal-spiral {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 400px;
+    border: 2px solid rgba(139, 92, 246, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    animation: rotateSpiral 40s linear infinite;
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.1);
+  }
+
+  .portal-spiral::before,
+  .portal-spiral::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(107, 114, 128, 0.15);
+    animation: rotateSpiral 60s linear infinite reverse;
+  }
+
+  .portal-spiral::after {
+    border-color: rgba(99, 102, 241, 0.1);
+    animation-duration: 80s;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.95); }
+    50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.05); }
+  }
+
+  @keyframes rotateSpiral {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .hero {
+    height: 86vh;
+    background: linear-gradient(rgba(11,14,26,0.6), rgba(11,14,26,0.95));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 80px;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    max-width: 680px;
+    padding: 2.5rem;
+    z-index: 3;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    background: rgba(15, 20, 40, 0.25);
+    border-radius: 24px;
+    margin: 0 1.5rem;
+    border: 1px solid rgba(139, 92, 246, 0.12);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.4rem, 6vw, 3.8rem);
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero p {
+    font-size: 1.25rem;
+    opacity: 0.92;
+    margin-bottom: 2rem;
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .badge {
+    background: linear-gradient(90deg, #8b5cf6, #6366f1);
+    color: #f8fafc;
+    padding: 0.4rem 1.3rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.8px;
+    margin-bottom: 1.4rem;
+    display: inline-block;
+  }
+
+  .btn-enter {
+    padding: 1.15rem 2.6rem;
+    font-size: 1.2rem;
+
+</style>
     </div>
   </footer>
 
