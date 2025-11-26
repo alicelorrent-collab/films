@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Екранія | Країна, де історії оживають</title>
+  <meta name="description" content="Екранія — унікальний український сервіс фільмів, серіалів і мультфільмів. Країна, де кожна історія оживає.">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@300;400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
   <style>
-    /* ===== СТИЛЬ: ЕКРАНІЯ — КРАЇНА ІСТОРІЙ ===== */
     :root {
-      --primary: #6366f1;        /* фіолетово-синій — магія, глибина */
-      --secondary: #8b5cf6;      /* ліловий — таємниця, уява */
-      --accent: #10b981;         /* зелений акцент — життя, ожиття */
+      --primary: #6366f1;
+      --secondary: #8b5cf6;
+      --accent: #10b981;
       --dark-bg: #0b0e1a;
       --card-bg: #151a2d;
       --text: #f0f7ff;
@@ -33,7 +33,6 @@
       position: relative;
     }
 
-    /* Світловий промінь-декор */
     body::before {
       content: '';
       position: absolute;
@@ -53,7 +52,6 @@
       z-index: 2;
     }
 
-    /* Header */
     header {
       padding: 1.4rem 0;
       position: fixed;
@@ -63,6 +61,7 @@
       background: rgba(11, 14, 26, 0.94);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid rgba(139, 92, 246, 0.12);
+      -webkit-backdrop-filter: blur(18px);
     }
 
     .header-inner {
@@ -152,7 +151,6 @@
       transform: scale(1.12);
     }
 
-    /* Hero — вхід до Екранії */
     .hero {
       height: 86vh;
       background: linear-gradient(rgba(11,14,26,0.5), rgba(11,14,26,0.92)), 
@@ -164,7 +162,6 @@
       overflow: hidden;
     }
 
-    /* Портал-ефект */
     .portal {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -259,7 +256,6 @@
       border: 1px solid rgba(139, 92, 246, 0.35);
     }
 
-    /* Search */
     .search-container {
       padding: 2.4rem 0 2rem;
     }
@@ -289,7 +285,6 @@
       box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.28);
     }
 
-    /* Sections */
     main {
       padding-bottom: 5.5rem;
     }
@@ -329,7 +324,6 @@
       color: #d1d7f0;
     }
 
-    /* Grid */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
@@ -393,7 +387,6 @@
       gap: 0.6rem;
     }
 
-    /* Footer */
     footer {
       text-align: center;
       padding: 2.8rem 0 2.2rem;
@@ -411,20 +404,18 @@
       font-weight: 600;
     }
 
-    /* Mobile */
     @media (max-width: 768px) {
       .hero { height: 72vh; }
       .hero h1 { font-size: 2.8rem; }
       .grid { grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 1.5rem; }
       nav ul { gap: 1.3rem; font-size: 0.95rem; }
-      .btn-enter, .btn-explore { padding: 1rem 1.6rem; font-size: 1.05rem; }
     }
 
     @media (max-width: 480px) {
       .hero-content { padding: 2rem 1.2rem 2.8rem; }
       .hero h1 { font-size: 2.3rem; }
       .hero-buttons { flex-direction: column; }
-      .btn-enter, .btn-explore { width: 100%; justify-content: center; }
+      .btn-enter, .btn-explore { padding: 1rem 1.6rem; font-size: 1.05rem; }
       .section-title { font-size: 1.6rem; }
     }
   </style>
@@ -517,7 +508,6 @@
   </footer>
 
   <script>
-    // Дані: усі назви — оригінальні, «екранійські»
     const data = {
       trending: [
         { title: "Хроніки Кам’яного Лісу", year: "2025", type: "Фільм", img: "https://picsum.photos/200/300?random=1" },
