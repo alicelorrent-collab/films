@@ -577,23 +577,33 @@
         allCards.forEach(card => {
           const title = card.querySelector('.card-title').textContent.toLowerCase();
           card.style.display = !q || title.includes(q) ? 'block' : 'none';
-        
-  <!-- Блок, де буде плеєр -->
-  <div id="player"></div>
-
-  <!-- Підключаємо ваш плеєр -->
-  <script src="myplayer.js"></script>
-
-  <!-- Ініціалізація -->
-  <script>
-    // Створюємо новий екземпляр плеєра
-    var player = new Playerjs({
-      id: "player",                     // ID блоку <div>
-      file: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" // ← ваше відео
-      // Або: file: "video/avengers.mp4" — якщо відео на вашому сервері
     });
-      });
+    });
     });
   </script>
+  <div style="margin: 4rem auto; max-width: 800px;">
+      <h2 style="text-align: center; margin-bottom: 1.5rem;">Попередній перегляд</h2>
+      <div id="player" style="width: 100%; height: 0; padding-bottom: 56.25%; position: relative; background: #000;"></div>
+    </div>
+
+    <script src="myplayer.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Переконайтеся, що плеєр ініціалізується ТІЛЬКИ після завантаження DOM
+        if (typeof Playerjs !== 'undefined') {
+          new Playerjs({
+            id: "player",
+            file: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+            // Додатково (необов’язково, але корисно):
+            autoplay: false,
+            controls: true,
+            width: "100%",
+            ratio: "16:9"
+          });
+        } else {
+          console.error("❌ PlayerJS не завантажено. Перевірте шлях до myplayer.js");
+        }
+      });
+    </script>
 </body>
 </html>
