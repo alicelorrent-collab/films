@@ -6,6 +6,10 @@
   <title>Екранія | Країна, де історії оживають</title>
   <meta name="description" content="Екранія — унікальний український сервіс фільмів, серіалів і мультфільмів. Країна, де кожна історія оживає.">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@300;400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Мій фільм</title>
+  <style>
+    #player { width: 100%; max-width: 800px; height: 450px; }
   <style>
     :root {
       --primary: #6366f1;
@@ -573,7 +577,21 @@
         allCards.forEach(card => {
           const title = card.querySelector('.card-title').textContent.toLowerCase();
           card.style.display = !q || title.includes(q) ? 'block' : 'none';
-        });
+        
+  <!-- Блок, де буде плеєр -->
+  <div id="player"></div>
+
+  <!-- Підключаємо ваш плеєр -->
+  <script src="myplayer.js"></script>
+
+  <!-- Ініціалізація -->
+  <script>
+    // Створюємо новий екземпляр плеєра
+    var player = new Playerjs({
+      id: "player",                     // ID блоку <div>
+      file: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" // ← ваше відео
+      // Або: file: "video/avengers.mp4" — якщо відео на вашому сервері
+    });
       });
     });
   </script>
