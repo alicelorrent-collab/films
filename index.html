@@ -528,121 +528,6 @@
   .carousel-item.near { flex: 0 0 230px; height: 130px; }
   .carousel-item.center { flex: 0 0 300px; height: 169px; }
 }
-    // === MODERN CAROUSEL (inertial scroll + center focus) ===
-const heroFilms = [
-  { id: "dune", title: "Dune: Частина Друга", img: "https://picsum.photos/540/304?random=21" },
-  { id: "batman", title: "Бетмен: Частина II", img: "https://picsum.photos/540/304?random=22" },
-  { id: "wicked", title: "Нечиста: Частина II", img: "https://picsum.photos/540/304?random=23" },
-  { id: "avatar", title: "Аватар 3", img: "https://picsum.photos/540/304?random=24" },
-  { id: "superman", title: "Супермен (2025)", img: "https://picsum.photos/540/304?random=25" },
-  { id: "furiosa", title: "Фуріоза", img: "https://picsum.photos/540/304?random=26" },
-  { id: "kamianyi-lis", title: "Хроніки Кам’яного Лісу", img: "https://picsum.photos/540/304?random=1" }
-];
-
-let isDown = false;
-let startX;
-let scrollLeft;
-
-function renderHeroCarousel() {
-  const track = document.getElementById('hero-carousel-track');
-  track.innerHTML = heroFilms.map((film, i) =>
-    `<div class="carousel-item" data-id="${film.id}">
-      <img src="${film.img}" alt="${film.title}" draggable="false">
-    </div>`
-  ).join('');
-  
-  centerActiveItem();
-}
-
-function centerActiveItem() {
-  const items = document.querySelectorAll('.carousel-item');
-  const centerIndex = Math.floor(items.length / 2);
-  
-  items.forEach((item, i) => {
-    item.classList.remove('center', 'near');
-    if (i === centerIndex) {
-      item.classList.add('center');
-    } else if (i === centerIndex - 1 || i === centerIndex + 1) {
-      item.classList.add('near');
-    }
-  });
-}
-
-// Інерційна прокрутка мишкою/тачем
-document.addEventListener('DOMContentLoaded', () => {
-  renderHeroCarousel();
-  
-  const track = document.getElementById('hero-carousel-track');
-  
-  track.addEventListener('mousedown', (e) => {
-    isDown = true;
-    startX = e.pageX - track.offsetLeft;
-    scrollLeft = track.scrollLeft;
-    track.classList.add('no-select');
-  });
-  
-  track.addEventListener('mouseleave', () => {
-    isDown = false;
-  });
-  
-  track.addEventListener('mouseup', () => {
-    isDown = false;
-    updateCenterOnRelease();
-  });
-  
-  track.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - track.offsetLeft;
-    const walk = (x - startX) * 1.8; // швидкість прокрутки
-    track.scrollLeft = scrollLeft - walk;
-  });
-  
-  // Після завершення прокрутки — вирівнюємо до ближчого елемента
-  function updateCenterOnRelease() {
-    const items = Array.from(document.querySelectorAll('.carousel-item'));
-    if (items.length === 0) return;
-    
-    const trackRect = track.getBoundingClientRect();
-    const centerPoint = trackRect.left + trackRect.width / 2;
-    
-    let closestItem = items[0];
-    let minDist = Infinity;
-    
-    items.forEach(item => {
-      const rect = item.getBoundingClientRect();
-      const dist = Math.abs(rect.left + rect.width / 2 - centerPoint);
-      if (dist < minDist) {
-        minDist = dist;
-        closestItem = item;
-      }
-    });
-    
-    // Визначаємо індекс
-    const index = items.indexOf(closestItem);
-    const centerIndex = Math.floor(heroFilms.length / 2);
-    const diff = centerIndex - index;
-    
-    // Циклічний зсув масиву
-    if (diff > 0) {
-      for (let i = 0; i < diff; i++) heroFilms.unshift(heroFilms.pop());
-    } else if (diff < 0) {
-      for (let i = 0; i < -diff; i++) heroFilms.push(heroFilms.shift());
-    }
-    
-    renderHeroCarousel();
-  }
-});
-
-// Додатково: клік — як перехід до фільму
-document.addEventListener('click', (e) => {
-  const item = e.target.closest('.carousel-item');
-  if (item && item.classList.contains('center')) {
-    const id = item.dataset.id;
-    // window.location.href = `film.html?id=${id}`;
-    alert(`Відкрити фільм: ${id}`);
-  }
-});
   </style>
 </head>
 <body>
@@ -781,6 +666,128 @@ document.addEventListener('click', (e) => {
         allCards.forEach(card => {
           const title = card.querySelector('.card-title').textContent.toLowerCase();
           card.style.display = !q || title.includes(q) ? 'block' : 'none';
+          <script>
+  // ... ваш існуючий код (data, createCard, DOMContentLoaded...) ...
+
+  // === СУЧАСНА КАРУСЕЛЬ НОВИХ ФІЛЬМІВ 2025 ===
+  const heroFilms = [
+    { id: "dune", title: "Dune: Частина Друга", img: "https://picsum.photos/540/304?random=21" },
+    { id: "batman", title: "Бетмен: Частина II", img: "https://picsum.photos/540/304?random=22" },
+    { id: "wicked", title: "Нечиста: Частина II", img: "https://picsum.photos/540/304?random=23" },
+    { id: "avatar", title: "Аватар 3", img: "https://picsum.photos/540/304?random=24" },
+    { id: "superman", title: "Супермен (2025)", img: "https://picsum.photos/540/304?random=25" },
+    { id: "furiosa", title: "Фуріоза", img: "https://picsum.photos/540/304?random=26" },
+    { id: "kamianyi-lis", title: "Хроніки Кам’яного Лісу", img: "https://picsum.photos/540/304?random=1" }
+  ];
+
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  function renderHeroCarousel() {
+    const track = document.getElementById('hero-carousel-track');
+    if (!track) return;
+    
+    track.innerHTML = heroFilms.map((film, i) =>
+      `<div class="carousel-item" data-id="${film.id}">
+        <img src="${film.img}" alt="${film.title}" draggable="false">
+      </div>`
+    ).join('');
+    
+    centerActiveItem();
+  }
+
+  function centerActiveItem() {
+    const items = document.querySelectorAll('.carousel-item');
+    const centerIndex = Math.floor(items.length / 2);
+    
+    items.forEach((item, i) => {
+      item.classList.remove('center', 'near');
+      if (i === centerIndex) {
+        item.classList.add('center');
+      } else if (i === centerIndex - 1 || i === centerIndex + 1) {
+        item.classList.add('near');
+      }
+    });
+  }
+
+  // Ініціалізація + інтерактив
+  document.addEventListener('DOMContentLoaded', () => {
+    renderHeroCarousel();
+    
+    const track = document.getElementById('hero-carousel-track');
+    if (!track) return;
+
+    // Свайп мишкою
+    track.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+      track.classList.add('no-select');
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDown = false;
+      track.classList.remove('no-select');
+      updateCenterOnRelease();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDown || !track) return;
+      e.preventDefault();
+      const x = e.pageX - track.offsetLeft;
+      const walk = (x - startX) * 1.8;
+      track.scrollLeft = scrollLeft - walk;
+    });
+
+    // Вирівнювання після свайпу
+    function updateCenterOnRelease() {
+      const items = Array.from(document.querySelectorAll('.carousel-item'));
+      if (!items.length) return;
+
+      const trackRect = track.getBoundingClientRect();
+      const centerPoint = trackRect.left + trackRect.width / 2;
+      let closestItem = items[0];
+      let minDist = Infinity;
+
+      items.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        const dist = Math.abs(rect.left + rect.width / 2 - centerPoint);
+        if (dist < minDist) {
+          minDist = dist;
+          closestItem = item;
+        }
+      });
+
+      const index = items.indexOf(closestItem);
+      const centerIndex = Math.floor(heroFilms.length / 2);
+      const diff = centerIndex - index;
+
+      if (diff > 0) {
+        for (let i = 0; i < diff; i++) heroFilms.unshift(heroFilms.pop());
+      } else if (diff < 0) {
+        for (let i = 0; i < -diff; i++) heroFilms.push(heroFilms.shift());
+      }
+
+      renderHeroCarousel();
+    }
+
+    // Клік на центральну — "відкрити"
+    track.addEventListener('click', (e) => {
+      const item = e.target.closest('.carousel-item');
+      if (item && item.classList.contains('center')) {
+        const id = item.dataset.id;
+        console.log("Відкрити фільм:", id);
+        // Тут буде: window.location.href = `film.html?id=${id}`;
+      }
+    });
+  });
+
+  // Допоміжний CSS-клас (для запобігання виділення)
+  const style = document.createElement('style');
+  style.textContent = `.no-select{user-select:none;-webkit-user-select:none;}`;
+  document.head.appendChild(style);
+</script>
         });
       });
     });
