@@ -385,6 +385,85 @@
     @media (max-width: 480px) {
       .section-title { font-size: 1.7rem; }
     }
+    /* Контент каруселі */
+.carousel-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.4rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.9));
+  color: white;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+
+.carousel-item.center .carousel-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.carousel-title {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.carousel-meta {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.carousel-genres {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.genre-tag {
+  background: rgba(99, 102, 241, 0.3);
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.carousel-btn {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  padding: 0.65rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-family: 'Manrope', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+}
+
+.carousel-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.carousel-btn::after {
+  content: '▶';
+  font-size: 1rem;
+}
+
+/* Приховуємо текст при наведенні на не-центральні карточки */
+.carousel-item:not(.center):hover .carousel-content {
+  opacity: 1;
+  transform: translateY(0);
+}
   </style>
 </head>
 <body>
@@ -496,32 +575,48 @@
 
     // === Карусель (hero) ===
     const heroFilms = [
-      { id: "dune", title: "Dune: Частина Друга", img: "https://picsum.photos/540/304?random=21" },
-      { id: "batman", title: "Бетмен: Частина II", img: "https://picsum.photos/540/304?random=22" },
-      { id: "wicked", title: "Нечиста: Частина II", img: "https://picsum.photos/540/304?random=23" },
-      { id: "avatar", title: "Аватар 3", img: "https://picsum.photos/540/304?random=24" },
-      { id: "superman", title: "Супермен (2025)", img: "https://picsum.photos/540/304?random=25" },
-      { id: "furiosa", title: "Фуріоза", img: "https://picsum.photos/540/304?random=26" },
-      { id: "kamianyi-lis", title: "Хроніки Кам’яного Лісу", img: "https://picsum.photos/540/304?random=1" }
-    ];
+  { id: "dune", title: "Dune: Частина Друга", year: "2025", genres: ["Sci-Fi", "Епос"], img: "https://picsum.photos/540/304?random=21" },
+  { id: "batman", title: "Бетмен: Частина II", year: "2025", genres: ["Боєвик", "Детектив"], img: "https://picsum.photos/540/304?random=22" },
+  { id: "wicked", title: "Нечиста: Частина II", year: "2025", genres: ["Мюзикл", "Фентезі"], img: "https://picsum.photos/540/304?random=23" },
+  { id: "avatar", title: "Аватар 3", year: "2025", genres: ["Sci-Fi", "Пригода"], img: "https://picsum.photos/540/304?random=24" },
+  { id: "superman", title: "Супермен (2025)", year: "2025", genres: ["Супергерой", "Драма"], img: "https://picsum.photos/540/304?random=25" },
+  { id: "furiosa", title: "Фуріоза", year: "2025", genres: ["Екшн", "Постапокаліпсис"], img: "https://picsum.photos/540/304?random=26" },
+  { id: "kamianyi-lis", title: "Хроніки Кам’яного Лісу", year: "2025", genres: ["Фентезі", "Пригода"], img: "https://picsum.photos/540/304?random=1" }
+];
 
     let isDown = false;
     let startX;
     let scrollLeft;
 
     function renderHeroCarousel() {
-      const track = document.getElementById('hero-carousel-track');
-      if (!track) return;
-      
-      track.innerHTML = heroFilms.map((film, i) =>
-        `<div class="carousel-item" data-id="${film.id}">
-          <img src="${film.img}" alt="${film.title}" draggable="false">
-        </div>`
-      ).join('');
-      
-      centerActiveItem();
+  const track = document.getElementById('hero-carousel-track');
+  if (!track) return;
+  
+  track.innerHTML = heroFilms.map((film, i) =>
+    `<div class="carousel-item" data-id="${film.id}">
+      <img src="${film.img}" alt="${film.title}" draggable="false">
+      <div class="carousel-content">
+        <div class="carousel-title">${film.title}</div>
+        <div class="carousel-meta">
+          <span>${film.year}</span>
+        </div>
+        <div class="carousel-genres">
+          ${film.genres.map(g => `<span class="genre-tag">${g}</span>`).join('')}
+        </div>
+        <button class="carousel-btn" onclick="openFilm('${film.id}')">Дивитися</button>
+      </div>
+    </div>`
+  ).join('');
+  
+  centerActiveItem();
     }
-
+function openFilm(id) {
+  // Тимчасово — алерт
+  alert(`Відкриваємо: ${id}`);
+  
+  // Пізніше — розкоментуйте це:
+  // window.location.href = `film.html?id=${id}`;
+}
     function centerActiveItem() {
       const items = document.querySelectorAll('.carousel-item');
       const centerIndex = Math.floor(items.length / 2);
